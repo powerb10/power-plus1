@@ -1895,9 +1895,9 @@ client.on('message', message => {
     }
     });
 
-const devs = ["ايدي هنا"]
+const devs = ["466425075487342615"]
  
-const adminprefix = "البرفكس";
+const adminprefix = "$";
 client.on('message', message => {
     var argresult = message.content.split(` `).slice(1).join(' ');
       if (!devs.includes(message.author.id)) return;
