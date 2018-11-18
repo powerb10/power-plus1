@@ -111,7 +111,7 @@ client.on("guildMemberAdd", member => {
                               ctx.font = '30px Arial';
                               ctx.fontSize = '28px';
                               ctx.fillStyle = "#FFFFFF";
-      ctx.fillText(`Welcome To ${member.guild.name}`, 245, 80);
+      ctx.fillText(``, 245, 80);
       
                               //AVATARً
                               let Avatar = Canvas.Image;
@@ -1938,5 +1938,45 @@ client.on('message', message => {
     }
     
      });
+
+client.on("ready", () => {
+    var guild;
+    while (!guild)
+        guild = client.guilds.get("467981686148431872");
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            dat[Inv] = Invite.uses;
+        });
+    });
+});
+ 
+ 
+ 
+client.on("guildMemberAdd", (member) => {
+    let channel = member.guild.channels.get("513533143429677086");
+    if (!channel) {
+        console.log("!the channel id it's not correct");
+        return;
+    }
+    if (member.id == client.user.id) {
+        return;
+    }
+    console.log('-');
+    var guild;
+    while (!guild)
+        guild = client.guilds.get("467981686148431872");
+    guild.fetchInvites().then((data) => {
+        data.forEach((Invite, key, map) => {
+            var Inv = Invite.code;
+            if (dat[Inv])
+                if (dat[Inv] < Invite.uses) {
+ channel.send(`join by: ${Invite.inviter} `) ;        
+ }
+            dat[Inv] = Invite.uses;
+       
+       });
+    });
+});
 
 client.login(process.env.BOT_TOKEN);
